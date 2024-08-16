@@ -1,0 +1,175 @@
+{% extends "base-blog.html" %}
+
+{% block content %}
+    <div class="container">
+        <!-- Wyszukiwarka -->
+        <div class="search-form">
+            <form method="GET">
+                <input type="text" name="q" placeholder="Szukaj po tytule lub treści" value="{{ request.GET.q }}">
+                <button type="submit">Szukaj</button>
+            </form>
+        </div>
+
+        <!-- Przełącznik motywów -->
+        <div class="theme-toggle">
+            <button id="theme-toggle-btn">Zmień motyw</button>
+            <div class="mobile-menu">
+                <button id="category-menu-btn">Kategorie</button>
+                <button id="filter-menu-btn">Filtruj</button>
+            </div>
+        </div>
+
+        <!-- Menu kategorii (domyślnie ukryte) -->
+        <div id="category-menu" class="menu hidden">
+            <h2>Kategorie</h2>
+            <ul>
+                <li><a href="{% url 'blog_post_list' %}" class="{% if not request.GET.category %}active{% endif %}">Wszystkie</a></li>
+                {% for category in categories %}
+                    <li>
+                        <a href="?category={{ category.id }}" class="category-link {% if request.GET.category == category.id|stringformat:"s" %}active{% endif %}">
+                            <img src="{{ category.image.url }}" alt="{{ category.name }} image" class="category-image">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Menu filtrowania (domyślnie ukryte) -->
+        <div id="filter-menu" class="menu hidden">
+            <h2>Filtruj po dacie</h2>
+            <form method="GET">
+                <label for="year">Rok:</label>
+                <select name="year" id="year">
+                    <option value="">-- Wybierz rok --</option>
+                    {% for year in years %}
+                        <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="month">Miesiąc:</label>
+                <select name="month" id="month">
+                    <option value="">-- Wybierz miesiąc --</option>
+                    {% for month in months %}
+                        <option value="{{ month }}" {% if request.GET.month == month|stringformat:"s" %}selected{% endif %}>{{ month }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="day">Dzień:</label>
+                <select name="day" id="day">
+                    <option value="">-- Wybierz dzień --</option>
+                    {% for day in days %}
+                        <option value="{{ day }}" {% if request.GET.day == day|stringformat:"s" %}selected{% endif %}>{{ day }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Filtruj</button>
+            </form>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Kategorie po lewej stronie -->
+            <div class="categories">
+                <h2>Kategorie</h2>
+                <ul>
+                    <li><a href="{% url 'blog_post_list' %}" class="{% if not request.GET.category %}active{% endif %}">Wszystkie</a></li>
+                    {% for category in categories %}
+                        <li>
+                            <a href="?category={{ category.id }}" class="category-link {% if request.GET.category == category.id|stringformat:"s" %}active{% endif %}">
+                                <img src="{{ category.image.url }}" alt="{{ category.name }} image" class="category-image">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Lista postów wyśrodkowana -->
+            <div class="blog-posts">
+                {% for post in blog_posts %}
+                    <a href="#" class="blog-post-link">
+                        <div class="blog-post" style="background-image: url('{{ post.image.url }}');">
+                            <div class="post-meta">
+                                <span class="category-label">{{ post.category.name }}</span>
+                                <span class="date-label">{{ post.created_at|date:"d M Y" }}</span>
+                            </div>
+                            <h2>{{ post.title }}</h2>
+                            <div class="author">
+                                <span>Autor: {{ post.author }}</span> <!-- Nowy element dla autora -->
+                            </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p>Brak postów w tej kategorii.</p>
+                {% endfor %}
+            </div>
+
+            <!-- Filtrowanie po dacie po prawej stronie -->
+            <div class="date-filter">
+                <h2>Filtruj po dacie</h2>
+                <form method="GET">
+                    <label for="year">Rok:</label>
+                    <select name="year" id="year">
+                        <option value="">-- Wybierz rok --</option>
+                        {% for year in years %}
+                            <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="month">Miesiąc:</label>
+                    <select name="month" id="month">
+                        <option value="">-- Wybierz miesiąc --</option>
+                        {% for month in months %}
+                            <option value="{{ month }}" {% if request.GET.month == month|stringformat:"s" %}selected{% endif %}>{{ month }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="day">Dzień:</label>
+                    <select name="day" id="day">
+                        <option value="">-- Wybierz dzień --</option>
+                        {% for day in days %}
+                            <option value="{{ day }}" {% if request.GET.day == day|stringformat:"s" %}selected{% endif %}>{{ day }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button type="submit">Filtruj</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Paginacja -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if blog_posts.has_previous %}
+                    <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.year %}year={{ request.GET.year }}&{% endif %}{% if request.GET.month %}month={{ request.GET.month }}&{% endif %}{% if request.GET.day %}day={{ request.GET.day }}&{% endif %}page=1">&laquo; Pierwsza</a>
+                    <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.year %}year={{ request.GET.year }}&{% endif %}{% if request.GET.month %}month={{ request.GET.month }}&{% endif %}{% if request.GET.day %}day={{ request.GET.day }}&{% endif %}page={{ blog_posts.previous_page_number }}">Poprzednia</a>
+                {% endif %}
+
+                <span class="current">
+                    Strona {{ blog_posts.number }} z {{ blog_posts.paginator.num_pages }}.
+                </span>
+
+                {% if blog_posts.has_next %}
+                    <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.year %}year={{ request.GET.year }}&{% endif %}{% if request.GET.month %}month={{ request.GET.month }}&{% endif %}{% if request.GET.day %}day={{ request.GET.day }}&{% endif %}page={{ blog_posts.next_page_number }}">Następna</a>
+                    <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if request.GET.category %}category={{ request.GET.category }}&{% endif %}{% if request.GET.year %}year={{ request.GET.year }}&{% endif %}{% if request.GET.month %}month={{ request.GET.month }}&{% endif %}{% if request.GET.day %}day={{ request.GET.day }}&{% endif %}page={{ blog_posts.paginator.num_pages }}">Ostatnia &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryMenuBtn = document.getElementById('category-menu-btn');
+            const filterMenuBtn = document.getElementById('filter-menu-btn');
+            const categoryMenu = document.getElementById('category-menu');
+            const filterMenu = document.getElementById('filter-menu');
+        
+            categoryMenuBtn.addEventListener('click', function() {
+                categoryMenu.classList.toggle('hidden');
+            });
+        
+            filterMenuBtn.addEventListener('click', function() {
+                filterMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+{% endblock content %}
