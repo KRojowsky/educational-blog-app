@@ -1,0 +1,30 @@
+{% extends "base-blog.html" %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <header class="header">
+            <h1>{{ post.title }}</h1>
+        </header>
+        <section class="post-meta">
+            <p><strong>Autor:</strong> {{ post.author.username }}</p>
+            <p><strong>Data:</strong> {{ post.created_at|date:"d M Y" }}</p>
+        </section>
+        <article class="blog-content">
+            {% for block in content_blocks %}
+                {% if block.block_type == 'text' %}
+                    <div class="text-block">
+                        <p>{{ block.text }}</p>
+                    </div>
+                {% elif block.block_type == 'image' %}
+                    <div class="image-block">
+                        <img src="{{ block.image.url }}" alt="Obrazek: {{ block.text|default:'Bez opisu' }}" />
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p>Brak treści dla tego wpisu.</p>
+            {% endfor %}
+        </article>
+    </div>
+{% endblock content %}

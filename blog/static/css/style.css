@@ -38,35 +38,14 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    overflow-x: hidden; /* Zapobiega poziomemu przewijaniu */
 }
 
-/* Kontener */
-.container {
-    width: 100%;
-    margin: 0 auto; /* Wyśrodkowanie kontenera */
-    padding: 20px;
+body.dark-mode {
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
-/* Wyszukiwarka */
-.search-form {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.search-form form {
-    display: inline-block;
-}
-
-.search-form input {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    width: 250px;
-}
-
-.search-form button {
+.button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -76,155 +55,166 @@ body {
     transition: .2s;
 }
 
-.search-form button:hover {
+.button:hover {
     background-color: var(--button-hover-background);
 }
 
-/* Przełącznik motywów */
-.theme-toggle {
-    text-align: center;
-    margin-bottom: 20px;
+.main-nav {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.theme-toggle button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: var(--button-background);
-    color: white;
-    cursor: pointer;
+.nav-left {
+    display: flex;
+    gap: 4px;
 }
 
-.theme-toggle button:hover {
-    background-color: var(--button-hover-background);
+.back-button {
+    padding: 8px 20px;
 }
 
-.mobile-menu {
-    display: none; /* Domyślnie ukryte */
-    margin-bottom: 20px;
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
 }
 
-.mobile-menu button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
+.search-form input {
+    padding: 9px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    width: 250px;
 }
 
-/* Stylizacja menu */
 .menu {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
-}
-
-.menu.hidden {
-    display: none; /* Ukrywanie menu */
+    position: fixed;
+    top: 80px;
+    border: 1px solid var(--border-color);
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: var(--background-color);
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .menu h2 {
-    margin-top: 0;
-}
-
-
-@media (max-width: 768px) {
-    .categories, .date-filter {
-        display: none;
-    }
-
-    .mobile-menu {
-        display: block;
-    }
-
-    .blog-posts {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .blog-post {
-        max-width: 100%;
-    }
-}
-
-/* Wrapper do treści */
-.content-wrapper {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap; /* Utrzymuje elementy w jednej linii */
-    margin: 0 auto;
-    padding: 0 20px; /* Równy odstęp po lewej i prawej stronie */
-    box-sizing: border-box;
-    max-width: 100%; /* Utrzymuje szerokość kontenera */
-}
-
-/* Kategorie */
-.categories {
-    width: 20%;
-    padding-right: 20px;
-    box-sizing: border-box;
-}
-
-.categories h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-size: 1em;
+    color: var(--text-color);
     text-transform: uppercase;
 }
 
-.categories ul {
-    list-style-type: none;
+.menu ul {
     padding: 0;
     margin: 0;
+    list-style: none;
+    text-decoration: none;
 }
 
-.categories li {
-    margin-bottom: 5px;
-    border-radius: 10px;
-    overflow: hidden;
-    font-size: 0.9em;
-    padding: 5px;
-}
-
-.category-link {
+.menu a {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: inherit;
+    color: var(--text-color);
+    border-radius: 5px;
+    transition: background-color 0.2s;
+    font-size: 0.8em;
+    gap: 10px;
+    padding: 5px;
 }
 
-.category-link.active {
-    color: #bb00ff;
-}
-
-.category-image {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 50%;
-}
-
-.category-name {
-    white-space: nowrap; /* Zapobiega zawijaniu tekstu */
-}
-
-.categories a {
-    text-decoration: none;
-    color: var(--pagination-current-color);
-}
-
-.categories li:hover {
-    text-decoration: none;
+.menu a:hover {
     background-color: var(--category-hover);
 }
 
-/* Lista postów */
+.category-image, .menu-image{
+    width: 30px;
+    height: auto;
+}
+
+.menu.hidden {
+    display: none;
+}
+
+.menu form {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu label {
+    color: var(--text-color);
+    font-size: .8em;
+    margin-bottom: 5px;
+}
+
+.menu select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--post-background-color);
+    color: var(--text-color);
+    font-size: 0.8em;
+    width: 100%;
+}
+
+.menu button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-background);
+    color: white;
+    cursor: pointer;
+    font-size: .1em;
+    transition: background-color 0.2s;
+}
+
+.menu button {
+    font-size: 0.8em;
+}
+
+.menu button:hover {
+    background-color: var(--button-hover-background);
+}
+
+@media (max-width:  660px) {
+    .main-nav {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .nav-left {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .menu {
+        position: fixed;
+        top: 50px;
+        left: 10px;
+    }
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 .blog-posts {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: minmax(auto, 1fr);
-    gap: 20px; /* Dodaj odstęp między postami */
+    gap: 25px;
     box-sizing: border-box;
 }
 
@@ -234,16 +224,14 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .blog-posts {
         grid-template-columns: repeat(1, 1fr);
     }
 }
 
-/* Link do posta */
 .blog-post-link {
     text-decoration: none;
-    color: inherit;
     display: block;
 }
 
@@ -252,7 +240,6 @@ body {
     box-shadow: 0 0 6px 3px rgba(128, 128, 128, 0.6);
 }
 
-/* Stylizacja posta na blogu */
 .blog-post {
     position: relative;
     padding: 15px;
@@ -261,7 +248,7 @@ body {
     background-color: var(--post-background-color);
     background-size: cover;
     background-position: center;
-    color: var(--text-color);
+    color: #fff;
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -270,7 +257,7 @@ body {
 }
 
 .blog-post:hover {
-    opacity: .75;
+    opacity: .7;
 }
 
 .blog-post .author {
@@ -285,7 +272,6 @@ body {
     text-align: left;
     width: 100%;
     padding: 5px 0;
-    border-radius: 20px;
 }
 
 .blog-post .post-meta {
@@ -295,23 +281,62 @@ body {
     right: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 }
 
-.blog-post .category-label {
+.meta-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.meta-right {
+    margin-left: auto;
+    font-size: 0.8em;
     color: #fff;
-    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.blog-post .category-label, 
+.blog-post .new-label, 
+.blog-post .trending-label {
+    color: #fff;
+    padding: 5px 10px;
     border-radius: 20px;
     font-size: 0.8em;
     border: 1px solid #fff;
+    margin-bottom: 5px;
+    display: inline-block;
+    margin-right: 5px;
 }
 
-.blog-post .date-label {
-    background-color: rgba(255, 255, 255, 0.5);
+.blog-post .new-label, 
+.blog-post .trending-label {
+    max-width: 90px;
+}
+
+.new-label {
+    background-color: #28a745;
+}
+
+.trending-label {
+    background-color: #dc3545;
+}
+
+.date-label {
+    font-size: 0.9em;
     color: #fff;
-    padding: 7px 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
     border-radius: 20px;
-    font-size: 0.8em;
     border: 1px solid #fff;
+    display: inline-block;
+}
+
+.post-description {
+    margin-bottom: 20px;
+    font-size: 0.8em
 }
 
 .blog-post .post-image {
@@ -326,53 +351,8 @@ body {
     border-radius: 20px;
 }
 
-/* Filtrowanie po dacie */
-.date-filter {
-    width: 15%;
-    padding-left: 20px;
-    box-sizing: border-box;
-}
-
-.date-filter h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.date-filter form {
-    display: flex;
-    flex-direction: column;
-}
-
-.date-filter label {
-    margin-bottom: 5px;
-}
-
-.date-filter select {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--post-background-color);
-    color: var(--text-color);
-}
-
-.date-filter button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: var(--button-background);
-    color: #fff;
-    cursor: pointer;
-}
-
-.date-filter button:hover {
-    background-color: var(--button-hover-background);
-}
-
-/* Paginacja */
 .pagination {
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 .pagination .step-links {
@@ -382,18 +362,108 @@ body {
 
 .pagination .step-links a,
 .pagination .step-links span {
-    padding: 10px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    color: var(--link-color);
+    padding: 10px;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    color: var(--text-color);
     text-decoration: none;
 }
 
 .pagination .step-links a:hover {
-    background-color: #f8f9fa;
+    opacity: .8;
 }
 
 .pagination .step-links .current {
     background-color: var(--pagination-current-background);
     color: var(--pagination-current-color);
+}
+
+
+
+
+.header {
+    text-align: center; /* Wyśrodkowanie nagłówka */
+    margin-bottom: 20px; /* Odstęp poniżej nagłówka */
+}
+
+.header h1 {
+    font-size: 2em; /* Rozmiar czcionki dla tytułu */
+    margin: 0; /* Usunięcie marginesów */
+}
+
+/* Styl dla sekcji metadanych posta */
+.post-meta {
+    text-align: center; /* Wyśrodkowanie tekstu */
+    margin-bottom: 20px; /* Odstęp poniżej sekcji */
+}
+
+.post-meta p {
+    margin: 5px 0; /* Marginesy dla paragrafów */
+    font-size: 1em; /* Rozmiar czcionki */
+}
+
+/* Styl dla artykułu z treścią bloga */
+.blog-content {
+    line-height: 1.6; /* Wysokość linii dla lepszej czytelności */
+}
+
+/* Styl dla bloków tekstu */
+.text-block {
+    margin-bottom: 20px; /* Odstęp poniżej bloków tekstu */
+}
+
+/* Styl dla bloków z obrazkami */
+.image-block {
+    text-align: center; /* Wyśrodkowanie obrazków */
+    margin-bottom: 20px; /* Odstęp poniżej obrazków */
+}
+
+.image-block img {
+    max-width: 100%; /* Maksymalna szerokość obrazka */
+    height: auto; /* Automatyczna wysokość, aby zachować proporcje */
+    border-radius: 5px; /* Zaokrąglenie krawędzi obrazka */
+}
+
+/* Responsywność dla mniejszych ekranów */
+@media (max-width: 768px) {
+    .container, .main-nav {
+        padding: 10px; /* Mniejszy padding na mniejszych ekranach */
+    }
+
+    .header h1 {
+        font-size: 1.5em; /* Mniejszy rozmiar czcionki dla tytułu */
+    }
+
+    .post-meta p {
+        font-size: 0.9em; /* Mniejszy rozmiar czcionki dla metadanych */
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.2em; /* Jeszcze mniejszy rozmiar czcionki dla tytułu */
+    }
+
+    .post-meta p {
+        font-size: 0.8em; /* Jeszcze mniejszy rozmiar czcionki dla metadanych */
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Szerokość scrollbara */
+    height: 10px; /* Wysokość poziomego scrollbara */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Kolor tła scrollbara */
+    border-radius: 5px; /* Zaokrąglenie narożników */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* Kolor paska przewijania */
+    border-radius: 5px; /* Zaokrąglenie narożników */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Kolor paska przewijania po najechaniu */
 }
