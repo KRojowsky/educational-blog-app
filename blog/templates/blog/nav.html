@@ -1,8 +1,10 @@
 {% load static %}
 <nav class="main-nav">
     <div class="nav-left">
+        <a href="{% url 'blog_post_list' %}" class="button logo-button">
+            <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-img">
+        </a>
         <div class="nav-buttons">
-            <a href="javascript:history.go(-1)" class="button back-button"><i class="fa-solid fa-arrow-left"></i></a>
             <button class="button" id="category-menu-btn">Kategorie</button>
             <button class="button" id="filter-menu-btn">Filtruj</button>
         </div>

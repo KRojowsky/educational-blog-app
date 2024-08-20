@@ -73,12 +73,15 @@ def blog_post_list(request):
 
 def blog_post_detail(request, slug, id):
     post = get_object_or_404(BlogPost, slug=slug, id=id)
+    post.increment_views()
     content_blocks = post.content_blocks.all()
+    similar_posts = post.get_similar_posts().order_by('-created_at')[:4]
 
     context = get_blog_context()
     context.update({
         'post': post,
         'content_blocks': content_blocks,
+        'similar_posts': similar_posts,
     })
 
     return render(request, 'blog/blog_post_detail.html', context)

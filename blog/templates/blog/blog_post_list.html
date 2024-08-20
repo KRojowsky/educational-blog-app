@@ -18,6 +18,10 @@
                             </div>
                             <div class="meta-right">
                                 <span class="date-label">{{ post.created_at|date:"d M Y" }}</span>
+                                <div class="views-info">
+                                    <i class="fa fa-eye"></i> <!-- Ikona oczu z Font Awesome -->
+                                    <span class="views-count">{{ post.views }}</span>
+                                </div>
                             </div>
                         </div>
                         {% if post.is_new or post.is_trending %}

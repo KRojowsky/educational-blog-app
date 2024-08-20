@@ -18,9 +18,17 @@ class BlogPost(models.Model):
     is_new = models.BooleanField(default=False, verbose_name='Nowość')
     is_trending = models.BooleanField(default=False, verbose_name='Na czasie')
     content = models.TextField()
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
+    
+    def increment_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
+
+    def get_similar_posts(self):
+        return BlogPost.objects.filter(category=self.category).exclude(id=self.id)
 
 
 class ContentBlock(models.Model):

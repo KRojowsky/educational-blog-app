@@ -26,5 +26,26 @@
                 <p>Brak treści dla tego wpisu.</p>
             {% endfor %}
         </article>
+
+        {% if similar_posts %}
+        <section class="similar-posts">
+            <h2>Podobne posty</h2>
+            <div class="posts-container">
+                {% for similar_post in similar_posts %}
+                <div class="post-item">
+                    <a href="{% url 'blog_post_detail' slug=similar_post.slug id=similar_post.id %}" class="post-link">
+                        <div class="post-image" style="background-image: url('{{ similar_post.image.url }}');"></div>
+                        <div class="post-content">
+                            <h3>{{ similar_post.title }}</h3>
+                            <p class="post-date">{{ similar_post.created_at|date:"d M Y" }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <p>Brak podobnych postów.</p>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
     </div>
 {% endblock content %}
