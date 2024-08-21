@@ -24,14 +24,11 @@
                                 </div>
                             </div>
                         </div>
-                        {% if post.is_new or post.is_trending %}
-                            <div class="post-description">
-                                {{ post.content|slice:":100" }}
+                        <div class="meta-down">
+                            <h2>{{ post.title }}</h2>
+                            <div class="author">
+                                <span>Autor: {{ post.author }}</span>
                             </div>
-                        {% endif %}
-                        <h2>{{ post.title }}</h2>
-                        <div class="author">
-                            <span>Autor: {{ post.author }}</span>
                         </div>
                     </div>
                 </a>

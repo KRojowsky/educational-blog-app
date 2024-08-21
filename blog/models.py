@@ -17,7 +17,6 @@ class BlogPost(models.Model):
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, related_name='blog_posts')
     is_new = models.BooleanField(default=False, verbose_name='Nowość')
     is_trending = models.BooleanField(default=False, verbose_name='Na czasie')
-    content = models.TextField()
     views = models.PositiveIntegerField(default=0)
 
     def __str__(self):

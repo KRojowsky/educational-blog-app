@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="main-nav">
     <div class="nav-left">
-        <a href="{% url 'blog_post_list' %}" class="button logo-button">
+        <a href="{% url 'blog_post_list' %}" class="logo-button">
             <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo-img">
         </a>
         <div class="nav-buttons">
@@ -79,7 +79,7 @@
                 {% endfor %}
             </select>
 
-            <button type="submit">Filtruj</button>
+            <button class="button" type="submit">Filtruj</button>
         </form>
     </div>
 </nav>

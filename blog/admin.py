@@ -8,8 +8,8 @@ class ContentBlockInline(admin.TabularInline):
 class BlogPostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'created_at', 'category', 'is_new', 'is_trending', 'slug')
     list_filter = ('created_at', 'category', 'is_new', 'is_trending')
-    search_fields = ('title', 'content')
-    fields = ('title', 'author', 'category', 'content', 'image', 'slug', 'is_new', 'is_trending')
+    search_fields = ('title', )
+    fields = ('title', 'author', 'category', 'image', 'slug', 'is_new', 'is_trending')
     inlines = [ContentBlockInline]
     prepopulated_fields = {"slug": ("title",)}
 
