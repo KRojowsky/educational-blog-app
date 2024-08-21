@@ -1,5 +1,5 @@
 {% extends "base-blog.html" %}
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% block title %}{{ post.title }}{% endblock title %}
 
 {% block content %}
@@ -11,6 +11,7 @@
             <p><strong>Autor:</strong> {{ post.author.username }}</p>
             <p><strong>Data:</strong> {{ post.created_at|date:"d M Y" }}</p>
         </section>
+
         <article class="blog-content">
             {% for block in content_blocks %}
                 {% if block.block_type == 'text' %}
@@ -26,6 +27,21 @@
                 <p>Brak treści dla tego wpisu.</p>
             {% endfor %}
         </article>
+
+        <section class="share-buttons">
+            <h3>Udostępnij ten post:</h3>
+            <div class="buttons-container">
+                <a href="https://twitter.com/intent/tweet?text={{ post.title }}&url={{ request.build_absolute_uri }}" target="_blank" class="share-button">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="share-button">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ post.title }}" target="_blank" class="share-button">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </section>
 
         {% if similar_posts %}
         <section class="similar-posts">

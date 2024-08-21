@@ -6,7 +6,7 @@
     --text-color: #000;
     --link-color: #bb00ff;
     --link-hover-color: #0056b3;
-    --border-color: #ddd;
+    --border-color: #dbdbdb;
     --button-background: #bb00ff;
     --button-hover-background: #d665ff;
     --pagination-current-background: #d8d8d8;
@@ -22,7 +22,7 @@
     --text-color: #fff;
     --link-color: #d665ff;
     --link-hover-color: #ffcb6b;
-    --border-color: #ddd;
+    --border-color: #383838;
     --button-background: #bb00ff;
     --button-hover-background: #d665ff;
     --pagination-current-background: #191919;
@@ -78,7 +78,7 @@ body.dark-mode {
 }
 
 .logo-img {
-    max-width: 60px;
+    max-width: 50px;
 }
 
 .nav-buttons {
@@ -94,7 +94,7 @@ body.dark-mode {
     color: #fff;
     cursor: pointer;
     transition: .2s;
-    font-size: 1.1em;
+    font-size: .9em;
 }
 
 .button:hover {
@@ -102,14 +102,13 @@ body.dark-mode {
 }
 
 #theme-toggle-btn {
-    width: 60px;
-    height: 44px;
+    width: 50px;
+    height: 40px;
     padding: 0;
-    margin-top: 2px;
 }
 
 #theme-toggle-btn i {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .search-form {
@@ -121,10 +120,10 @@ body.dark-mode {
 }
 
 .search-form input {
-    padding: 10px;
+    padding: 12px;
     border: 1px solid var(--border-color);
     border-radius: 5px;
-    font-size: 1.1em;
+    font-size: .9em;
     flex-grow: 1;
     margin-right: 8px;
 }
@@ -192,7 +191,7 @@ body.dark-mode {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-height: 500px;
     overflow-y: auto;
-    font-size: 1.4em;
+    font-size: 1em;
 }
 
 .menu h2 {
@@ -355,9 +354,9 @@ body.dark-mode {
     color: #fff;
     text-align: left;
     width: 100%;
-    font-size: 1.5em;
+    font-size: 1em;
     letter-spacing: .7px;
-    line-height: 1.3;
+    line-height: 1.4;
 }
 
 .blog-post .post-meta {
@@ -368,7 +367,7 @@ body.dark-mode {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    font-size: 1em;
+    font-size: .8em;
 }
 
 .meta-left {
@@ -499,7 +498,7 @@ body.dark-mode {
 }
 
 .header h1 {
-    font-size: 2.5em;
+    font-size: 2em;
     margin: 0;
     text-transform: uppercase;
     color: var(--link-color);
@@ -572,8 +571,61 @@ body.dark-mode {
     }
 }
 
+.share-buttons{
+    padding: 30px 10px;
+}
+
+.share-buttons h3 {
+    font-size: 1.1em;
+    text-align: left;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+.share-button {
+    display: inline-block;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-button i {
+    font-size: 22px;
+}
+
+.share-button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 480px) {
+    .share-buttons h3 {
+        font-size: .9em;
+    }
+
+    .share-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .share-button i {
+        font-size: 20px;
+    }
+}
+
 .similar-posts {
-    margin-top: 50px;
     border-top: 1px solid var(--border-color);
 }
 
