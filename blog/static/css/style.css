@@ -383,18 +383,18 @@ body.dark-mode {
     font-size: 0.9em;
 }
 
-.views-info {
+.details-info {
     text-align: center;
 }
 
-.views-info i {
+.details-info i {
     margin-right: 5px;
 }
  
 .blog-post .new-label, 
 .blog-post .trending-label,
 .blog-post .category-label,
-.date-label, .views-info {
+.date-label, .details-info {
     color: #fff;
     padding: 5px 10px;
     border-radius: 20px;
@@ -419,6 +419,10 @@ body.dark-mode {
 .blog-post .trending-label {
     background-color: #dc3545;
     padding: 5px 0;
+}
+
+.details-info .fa-heart {
+    color: #dc3545;
 }
 
 .meta-down{
@@ -521,7 +525,7 @@ body.dark-mode {
     line-height: 1.8;
     font-size: 1.1em;
     color: var(--text-color);
-    padding: 20px;
+    padding: 5px 20px;
     background-color: var(--post-background-color);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -571,8 +575,48 @@ body.dark-mode {
     }
 }
 
+.like-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.like-button {
+    color: var(--text-color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.like-button:hover {
+    color: #007bff;
+}
+
+.like-button.liked {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.like-button.liked:hover {
+    color: var(--text-color);
+}
+
+.like-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.like-info .fa-heart {
+    color: #dc3545;
+    font-size: 16px;
+}
+
 .share-buttons{
-    padding: 30px 10px;
+    padding: 20px 10px 40px 10px;
+    border-top: 1px solid var(--border-color);
 }
 
 .share-buttons h3 {

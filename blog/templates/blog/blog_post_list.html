@@ -18,9 +18,13 @@
                             </div>
                             <div class="meta-right">
                                 <span class="date-label">{{ post.created_at|date:"d M Y" }}</span>
-                                <div class="views-info">
-                                    <i class="fa fa-eye"></i> <!-- Ikona oczu z Font Awesome -->
-                                    <span class="views-count">{{ post.views }}</span>
+                                <div class="details-info">
+                                    <i class="fa fa-eye"></i>
+                                    <span>{{ post.views }}</span>
+                                </div>
+                                <div class="details-info">
+                                    <i class="fas fa-heart"></i>
+                                    <span class="details-count">{{ post.likes }}</span>
                                 </div>
                             </div>
                         </div>

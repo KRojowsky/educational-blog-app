@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import BlogPost, BlogCategory
+from django.http import JsonResponse
 
 
 def get_blog_context():
@@ -21,8 +22,6 @@ def get_blog_context():
 def blog_post_list(request):
     category_id = request.GET.get('category')
     query = request.GET.get('q')
-    start_date = request.GET.get('start_date')
-    end_date = request.GET.get('end_date')
     year = request.GET.get('year')
     month = request.GET.get('month')
     day = request.GET.get('day')
@@ -37,19 +36,16 @@ def blog_post_list(request):
     
     if query:
         blog_posts = blog_posts.filter(Q(title__icontains=query))
-    
-    if start_date and end_date:
-        blog_posts = blog_posts.filter(created_at__range=[start_date, end_date])
-    
+
     if year:
         blog_posts = blog_posts.filter(created_at__year=year)
-    
+
     if month:
         blog_posts = blog_posts.filter(created_at__month=month)
-    
+
     if day:
         blog_posts = blog_posts.filter(created_at__day=day)
-    
+
     if new:
         blog_posts = blog_posts.filter(is_new=True)
     
@@ -77,11 +73,36 @@ def blog_post_detail(request, slug, id):
     content_blocks = post.content_blocks.all()
     similar_posts = post.get_similar_posts().order_by('-created_at')[:4]
 
+    liked_posts = request.COOKIES.get('liked_posts', '')
+    liked = str(post.id) in liked_posts.split(',')
+
     context = get_blog_context()
     context.update({
         'post': post,
         'content_blocks': content_blocks,
         'similar_posts': similar_posts,
+        'liked': liked,
     })
 
     return render(request, 'blog/blog_post_detail.html', context)
+
+
+
+def like_post(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    liked_posts = request.COOKIES.get('liked_posts', '')
+    liked_posts_list = liked_posts.split(',')
+
+    if str(pk) in liked_posts_list:
+        liked_posts_list.remove(str(pk))
+        post.likes -= 1
+        liked = False
+    else:
+        liked_posts_list.append(str(pk))
+        post.likes += 1
+        liked = True
+
+    post.save()
+    response = JsonResponse({'likes': post.likes, 'liked': liked})
+    response.set_cookie('liked_posts', ','.join(liked_posts_list))
+    return response

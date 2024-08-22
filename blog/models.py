@@ -18,6 +18,7 @@ class BlogPost(models.Model):
     is_new = models.BooleanField(default=False, verbose_name='Nowość')
     is_trending = models.BooleanField(default=False, verbose_name='Na czasie')
     views = models.PositiveIntegerField(default=0)
+    likes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -28,6 +29,9 @@ class BlogPost(models.Model):
 
     def get_similar_posts(self):
         return BlogPost.objects.filter(category=self.category).exclude(id=self.id)
+    
+    def number_of_likes(self):
+        return self.likes
 
 
 class ContentBlock(models.Model):

@@ -10,6 +10,14 @@
         <section class="post-meta">
             <p><strong>Autor:</strong> {{ post.author.username }}</p>
             <p><strong>Data:</strong> {{ post.created_at|date:"d M Y" }}</p>
+            <div class="details-info">
+                <i class="fa fa-eye"></i>
+                <span>{{ post.views }}</span>
+            </div>
+            <div class="details-info">
+                <i class="fas fa-heart"></i>
+                <span>{{ post.likes }}</span>
+            </div>
         </section>
 
         <article class="blog-content">
@@ -27,6 +35,16 @@
                 <p>Brak treści dla tego wpisu.</p>
             {% endfor %}
         </article>
+
+        <section class="like-section">
+            <button id="like-button" class="like-button {% if liked %}liked{% endif %}">
+                <i class="fas fa-thumbs-up"></i> <span id="like-button-text">{% if liked %}Lubię to!{% else %}Lubię to!{% endif %}</span>
+            </button>
+            <div class="like-info">
+                <i class="fas fa-heart"></i>
+                <p id="like-count">{{ post.likes }}</p>
+            </div>
+        </section>
 
         <section class="share-buttons">
             <h3>Udostępnij ten post:</h3>
@@ -64,4 +82,28 @@
         </section>
         {% endif %}
     </div>
+
+    <script>
+        document.getElementById('like-button').addEventListener('click', function(event) {
+            event.preventDefault();
+            fetch("{% url 'like_post' post.id %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('like-count').innerText = data.likes;
+                const likeButton = document.getElementById('like-button');
+                if (data.liked) {
+                    likeButton.classList.add('liked');
+                } else {
+                    likeButton.classList.remove('liked');
+                }
+            });
+        });
+    </script>
 {% endblock content %}

@@ -59,27 +59,28 @@
             <select name="year" id="year">
                 <option value="">-- Wybierz rok --</option>
                 {% for year in years %}
-                    <option value="{{ year }}" {% if request.GET.year == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+                    <option value="{{ year.year }}" {% if request.GET.year == year.year|stringformat:"s" %}selected{% endif %}>{{ year.year }}</option>
                 {% endfor %}
             </select>
-
+        
             <label for="month">Miesiąc:</label>
             <select name="month" id="month">
                 <option value="">-- Wybierz miesiąc --</option>
                 {% for month in months %}
-                    <option value="{{ month }}" {% if request.GET.month == month|stringformat:"s" %}selected{% endif %}>{{ month }}</option>
+                    <option value="{{ month.month }}" {% if request.GET.month == month.month|stringformat:"s" %}selected{% endif %}>{{ month|date:"F" }}</option>
                 {% endfor %}
             </select>
-
+        
             <label for="day">Dzień:</label>
             <select name="day" id="day">
                 <option value="">-- Wybierz dzień --</option>
                 {% for day in days %}
-                    <option value="{{ day }}" {% if request.GET.day == day|stringformat:"s" %}selected{% endif %}>{{ day }}</option>
+                    <option value="{{ day.day }}" {% if request.GET.day == day.day|stringformat:"s" %}selected{% endif %}>{{ day.day }}</option>
                 {% endfor %}
             </select>
-
+        
             <button class="button" type="submit">Filtruj</button>
         </form>
     </div>
+    
 </nav>
