@@ -66,7 +66,6 @@ def blog_post_list(request):
     return render(request, 'blog/blog_post_list.html', context)
 
 
-
 def blog_post_detail(request, slug, id):
     post = get_object_or_404(BlogPost, slug=slug, id=id)
     post.increment_views()
@@ -85,7 +84,6 @@ def blog_post_detail(request, slug, id):
     })
 
     return render(request, 'blog/blog_post_detail.html', context)
-
 
 
 def like_post(request, pk):

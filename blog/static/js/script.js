@@ -1,3 +1,4 @@
+// Change theme (light/dark)
 document.addEventListener("DOMContentLoaded", function() {
     const toggleButton = document.getElementById("theme-toggle-btn");
     const currentTheme = localStorage.getItem("theme") || "light";
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// Categories and filters
 document.addEventListener('DOMContentLoaded', function() {
     const categoryMenuBtn = document.getElementById('category-menu-btn');
     const filterMenuBtn = document.getElementById('filter-menu-btn');
@@ -20,17 +22,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterMenu = document.getElementById('filter-menu');
 
     function toggleMenu(menu) {
-        menu.classList.toggle('hidden');
+        if (menu.style.visibility === 'visible') {
+            menu.style.visibility = 'hidden';
+        } else {
+            menu.style.visibility = 'visible';
+        }
     }
 
     function hideMenu(menu) {
-        menu.classList.add('hidden');
+        menu.style.visibility = 'hidden';
     }
 
     function showMenu(menu) {
-        menu.classList.remove('hidden');
+        menu.style.visibility = 'visible';
     }
 
+    // Initialize menu state
     hideMenu(categoryMenu);
     hideMenu(filterMenu);
 
@@ -49,6 +56,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!filterMenuBtn.contains(event.target) && !filterMenu.contains(event.target)) {
             hideMenu(filterMenu);
+        }
+    });
+});
+
+
+// Likes
+document.getElementById('like-button').addEventListener('click', function(event) {
+    event.preventDefault();
+    fetch(likePostUrl, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('like-count').innerText = data.likes;
+        const likeButton = document.getElementById('like-button');
+        if (data.liked) {
+            likeButton.classList.add('liked');
+        } else {
+            likeButton.classList.remove('liked');
         }
     });
 });
